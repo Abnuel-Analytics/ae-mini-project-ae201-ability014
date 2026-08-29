@@ -1,0 +1,20 @@
+# yamllint — relaxed for GitHub Actions, dbt, and Kubernetes YAML.
+extends: default
+
+rules:
+  line-length:
+    max: 120
+    level: warning
+  document-start: disable
+  truthy:
+    # allow GitHub Actions "on:" keys (and yes/no) without flagging
+    check-keys: false
+  comments:
+    min-spaces-from-content: 1
+  indentation:
+    spaces: 2
+    indent-sequences: consistent
+  braces:
+    max-spaces-inside: 1
+  brackets:
+    max-spaces-inside: 1

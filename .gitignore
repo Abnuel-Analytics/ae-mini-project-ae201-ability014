@@ -1,0 +1,28 @@
+# Secrets & state — NEVER commit
+*-key.json
+service-account*.json
+credentials*.json
+.env
+.env.*
+*.pem
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+.terragrunt-cache/
+# Python / dbt
+__pycache__/
+.venv/
+.ruff_cache/
+.pytest_cache/
+target/
+dbt_packages/
+logs/
+# Data
+data/
+*.parquet
+# OS/editor
+.DS_Store
+.vscode/*
+!.vscode/extensions.json

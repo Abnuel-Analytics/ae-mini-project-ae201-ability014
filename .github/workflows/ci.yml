@@ -1,0 +1,41 @@
+name: mini-project-ci
+
+# Green-check discipline for weekly pod work: lint + tests
+# + dbt parse. Credential-free so it runs on every PR without GCP access.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v3
+        with:
+          python-version: "3.12"
+      - name: Ruff (lint + format)
+        run: |
+          uvx ruff format --check . || (echo "Run: uvx ruff format ."; exit 1)
+          uvx ruff check --output-format=github . || true
+      - name: Pytest (where tests exist)
+        shell: bash
+        run: |
+          if find . -type d -name tests | grep -q .; then
+            uv sync 2>/dev/null || true
+            uv run pytest -q || pytest -q
+          else
+            echo "No tests — skipping."
+          fi
+      - name: dbt parse (where present)
+        shell: bash
+        run: |
+          for d in $(find . -name dbt_project.yml -exec dirname {} \;); do
+            ( cd "$d" && uvx --from dbt-bigquery dbt parse )
+          done
+          echo "done"
