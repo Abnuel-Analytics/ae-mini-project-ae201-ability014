@@ -6,9 +6,9 @@
 
 ```sql
 -- The problem query from Lesson 2.1 — nested subquery
-select 
+select
     store_id, s.name as store_name,
-    store_daily_rev.avg_daily_rev as store_avg_daily_rev, 
+    store_daily_rev.avg_daily_rev as store_avg_daily_rev,
     avg_daily_rev.avg_daily_rev as overall_avg_daily_rev,
     (avg_daily_rev.avg_daily_rev - store_daily_rev.avg_daily_rev)/(avg_daily_rev.avg_daily_rev)*100 as daily_rev_percent
 from (
@@ -247,9 +247,9 @@ joined             JOINs to another model or table.
 
 aggregated         GROUP BY. Rolls rows up to a coarser grain.
 
-final              The last CTE before SELECT * FROM final.
+final              The last CTE before SELECT *FROM final.
                    Use this pattern: the SELECT at the bottom is just:
-                   SELECT * FROM final;
+                   SELECT* FROM final;
 
 ```sql
 -- ✅ The canonical dbt CTE pattern

@@ -19,9 +19,9 @@
 --2. On top of B1, we then calculate average daily revenue
 
 ```sql
-select 
+select
     store_id, s.name as store_name,
-    store_daily_rev.avg_daily_rev as store_avg_daily_rev, 
+    store_daily_rev.avg_daily_rev as store_avg_daily_rev,
     avg_daily_rev.avg_daily_rev as overall_avg_daily_rev,
     (avg_daily_rev.avg_daily_rev - store_daily_rev.avg_daily_rev)/(avg_daily_rev.avg_daily_rev)*100 as daily_rev_percent
 from (
